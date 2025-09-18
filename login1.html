@@ -1,246 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login, Sign Up & Forget Password</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 100%;
-            max-width: 400px;
-            transition: all 0.3s ease-in-out;
-        }
-        .container:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-        .input-field {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        .input-field:focus {
-            border-color: #ff7e5f;
-            box-shadow: 0 0 5px rgba(255, 126, 95, 0.5);
-        }
-        .button {
-            background-color: #ff7e5f;
-            color: white;
-            padding: 15px;
-            width: 100%;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        .button:hover {
-            background-color: #feb47b;
-        }
-        .form-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .form-link a {
-            color: #ff7e5f;
-            text-decoration: none;
-        }
-        .form-link a:hover {
-            text-decoration: underline;
-        }
-        .hidden {
-            display: none;
-        }
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-top: 10px;
-            text-align: center;
-        }
-        .form-header {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Signup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f2f5;
+    }
+    .container {
+      width: 320px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .hidden { display: none; }
+    .form-header {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover { background: #0056b3; }
+    p { text-align: center; margin-top: 10px; font-size: 14px; }
+    a { color: #007bff; cursor: pointer; }
+    .error { color: red; font-size: 13px; text-align: center; }
+  </style>
 </head>
 <body>
+  <!-- Login -->
+  <div class="container" id="login-container">
+    <div class="form-header">Login</div>
+    <form id="login-form">
+      <input type="text" id="login-input" placeholder="Username / Email / Mobile" required>
+      <input type="password" id="login-password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p class="error" id="login-error"></p>
+    <p>Not registered? <a onclick="showSignup()">Sign Up</a></p>
+    <p><a onclick="showForget()">Forgot Password?</a></p>
+  </div>
 
-    <div class="container" id="login-container">
-        <div id="form-title" class="form-header">Login</div>
-        <form id="login-form">
-            <input type="text" id="login-username" class="input-field" placeholder="Username or Email or Mobile" required>
-            <input type="password" id="login-password" class="input-field" placeholder="Password" required>
-            <button type="submit" class="button">Login</button>
-        </form>
-        <p id="login-error" class="error"></p>
-        <div class="form-link">
-            <p><a href="javascript:void(0);" onclick="showSignUp()">Sign up here</a></p>
-            <p><a href="javascript:void(0);" onclick="showForgetPassword()">Forget Password?</a></p>
-        </div>
-    </div>
+  <!-- Signup -->
+  <div class="container hidden" id="signup-container">
+    <div class="form-header">Sign Up</div>
+    <form id="signup-form">
+      <input type="text" id="signup-name" placeholder="Username" required>
+      <input type="email" id="signup-email" placeholder="Email" required>
+      <input type="text" id="signup-mobile" placeholder="Mobile Number" required>
+      <input type="password" id="signup-password" placeholder="Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+    <p class="error" id="signup-error"></p>
+    <p>Already have an account? <a onclick="showLogin()">Login</a></p>
+  </div>
 
-    <div class="container hidden" id="sign-up-container">
-        <div id="form-title" class="form-header">Sign Up</div>
-        <form id="sign-up-form">
-            <input type="text" id="sign-up-username" class="input-field" placeholder="Username" required>
-            <input type="email" id="sign-up-email" class="input-field" placeholder="Email" required>
-            <input type="text" id="sign-up-mobile" class="input-field" placeholder="Mobile" required>
-            <input type="password" id="sign-up-password" class="input-field" placeholder="Password" required>
-            <button type="submit" class="button">Sign Up</button>
-        </form>
-        <p id="sign-up-error" class="error"></p>
-        <div class="form-link">
-            <p>Already have an account? <a href="javascript:void(0);" onclick="showLogin()">Login here</a></p>
-        </div>
-    </div>
+  <!-- Forget Password -->
+  <div class="container hidden" id="forget-container">
+    <div class="form-header">Reset Password</div>
+    <form id="forget-form">
+      <input type="text" id="forget-input" placeholder="Email / Mobile" required>
+      <input type="password" id="forget-password" placeholder="New Password" required>
+      <button type="submit">Reset</button>
+    </form>
+    <p class="error" id="forget-error"></p>
+    <p>Remembered? <a onclick="showLogin()">Login</a></p>
+  </div>
 
-    <div class="container hidden" id="forget-password-container">
-        <div id="form-title" class="form-header">Forget Password</div>
-        <form id="forget-password-form">
-            <input type="text" id="forget-email-mobile" class="input-field" placeholder="Email or Mobile" required>
-            <input type="password" id="new-password" class="input-field" placeholder="New Password" required>
-            <button type="submit" class="button">Reset Password</button>
-        </form>
-        <p id="forget-error" class="error"></p>
-        <div class="form-link">
-            <p><a href="javascript:void(0);" onclick="showLogin()">Back to Login</a></p>
-        </div>
-    </div>
+  <script>
+    // Show-Hide Functions
+    function showSignup() {
+      document.getElementById("login-container").classList.add("hidden");
+      document.getElementById("signup-container").classList.remove("hidden");
+      document.getElementById("forget-container").classList.add("hidden");
+    }
+    function showLogin() {
+      document.getElementById("login-container").classList.remove("hidden");
+      document.getElementById("signup-container").classList.add("hidden");
+      document.getElementById("forget-container").classList.add("hidden");
+    }
+    function showForget() {
+      document.getElementById("login-container").classList.add("hidden");
+      document.getElementById("signup-container").classList.add("hidden");
+      document.getElementById("forget-container").classList.remove("hidden");
+    }
 
-    <script>
-        // Show Login Form
-        function showLogin() {
-            document.getElementById('login-container').classList.remove('hidden');
-            document.getElementById('sign-up-container').classList.add('hidden');
-            document.getElementById('forget-password-container').classList.add('hidden');
-        }
+    // ✅ Signup
+    document.getElementById("signup-form").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-        // Show Sign Up Form
-        function showSignUp() {
-            document.getElementById('login-container').classList.add('hidden');
-            document.getElementById('sign-up-container').classList.remove('hidden');
-            document.getElementById('forget-password-container').classList.add('hidden');
-        }
+      let name = document.getElementById("signup-name").value.trim();
+      let email = document.getElementById("signup-email").value.trim();
+      let mobile = document.getElementById("signup-mobile").value.trim();
+      let password = document.getElementById("signup-password").value.trim();
+      let errorMsg = document.getElementById("signup-error");
 
-        // Show Forget Password Form
-        function showForgetPassword() {
-            document.getElementById('login-container').classList.add('hidden');
-            document.getElementById('sign-up-container').classList.add('hidden');
-            document.getElementById('forget-password-container').classList.remove('hidden');
-        }
+      errorMsg.textContent = "";
 
-        // Check if user is logged in
-        function checkLoginStatus() {
-            const loggedInUser = localStorage.getItem('loggedInUser');
-            if (loggedInUser) {
-                window.location.href = 'home.html'; // Redirect to home page if already logged in
-            } else {
-                showLogin();
-            }
-        }
+      if (mobile.length !== 10 || isNaN(mobile)) {
+        errorMsg.textContent = "📱 मोबाइल नंबर 10 अंकों का होना चाहिए।";
+        return;
+      }
 
-        // Login Form Submit
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+      let users = JSON.parse(localStorage.getItem("userData")) || [];
 
-            const usernameOrEmail = document.getElementById('login-username').value;
-            const password = document.getElementById('login-password').value;
+      if (users.find(u => u.email === email || u.mobile === mobile || u.username === name)) {
+        errorMsg.textContent = "⚠️ यह Username/Email/Mobile पहले से रजिस्टर्ड है।";
+        return;
+      }
 
-            const storedUserData = JSON.parse(localStorage.getItem('userData')) || [];
+      users.push({ username: name, email, mobile, password });
+      localStorage.setItem("userData", JSON.stringify(users));
 
-            let validUser = false;
-            storedUserData.forEach(user => {
-                if ((user.username === usernameOrEmail || user.email === usernameOrEmail || user.mobile === usernameOrEmail) && user.password === password) {
-                    validUser = true;
-                    localStorage.setItem('loggedInUser', JSON.stringify(user)); // Store logged-in user in localStorage
-                }
-            });
+      alert("✅ Sign Up Successful! अब Login करें।");
+      showLogin();
+    });
 
-            if (validUser) {
-                alert('Login successful!');
-                window.location.href = 'home.html'; // Redirect to home page
-            } else {
-                document.getElementById('login-error').innerText = 'Invalid username/email/mobile or password';
-            }
-        });
+    // ✅ Login
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-        // Sign Up Form Submit
-        document.getElementById('sign-up-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+      let input = document.getElementById("login-input").value.trim();
+      let password = document.getElementById("login-password").value.trim();
+      let errorMsg = document.getElementById("login-error");
 
-            const username = document.getElementById('sign-up-username').value;
-            const email = document.getElementById('sign-up-email').value;
-            const mobile = document.getElementById('sign-up-mobile').value;
-            const password = document.getElementById('sign-up-password').value;
+      errorMsg.textContent = "";
 
-            const userData = {
-                username,
-                email,
-                mobile,
-                password
-            };
+      let users = JSON.parse(localStorage.getItem("userData")) || [];
+      let user = users.find(u =>
+        (u.username === input || u.email === input || u.mobile === input) && u.password === password
+      );
 
-            let storedUserData = JSON.parse(localStorage.getItem('userData')) || [];
-            storedUserData.push(userData);
-            localStorage.setItem('userData', JSON.stringify(storedUserData));
+      if (user) {
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
+        alert("✅ Login Successful!");
+        window.location.href = "home.html";
+      } else {
+        errorMsg.textContent = "❌ गलत Username/Email/Mobile या Password";
+      }
+    });
 
-            alert('Sign up successful! Please login.');
-            showLogin();
-        });
+    // ✅ Forget Password
+    document.getElementById("forget-form").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-        // Forget Password Form Submit
-        document.getElementById('forget-password-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+      let input = document.getElementById("forget-input").value.trim();
+      let newPass = document.getElementById("forget-password").value.trim();
+      let errorMsg = document.getElementById("forget-error");
 
-            const emailOrMobile = document.getElementById('forget-email-mobile').value;
-            const newPassword = document.getElementById('new-password').value;
+      errorMsg.textContent = "";
 
-            let storedUserData = JSON.parse(localStorage.getItem('userData')) || [];
-            let userFound = false;
+      let users = JSON.parse(localStorage.getItem("userData")) || [];
+      let userIndex = users.findIndex(u => u.email === input || u.mobile === input);
 
-            storedUserData.forEach(user => {
-                if ((user.email === emailOrMobile || user.mobile === emailOrMobile)) {
-                    user.password = newPassword;
-                    userFound = true;
-                }
-            });
+      if (userIndex !== -1) {
+        users[userIndex].password = newPass;
+        localStorage.setItem("userData", JSON.stringify(users));
+        alert("✅ Password Reset Successful!");
+        showLogin();
+      } else {
+        errorMsg.textContent = "❌ Email/Mobile नहीं मिला!";
+      }
+    });
 
-            if (userFound) {
-                localStorage.setItem('userData', JSON.stringify(storedUserData));
-                alert('Password reset successful!');
-                showLogin();
-            } else {
-                document.getElementById('forget-error').innerText = 'Email or Mobile not found';
-            }
-        });
-
-        // Call checkLoginStatus when page loads
-        window.onload = checkLoginStatus;
-    </script>
-
+    // ✅ Auto Redirect if already logged in
+    window.onload = function() {
+      let loggedIn = JSON.parse(localStorage.getItem("loggedInUser"));
+      if (loggedIn) {
+        window.location.href = "home.html";
+      }
+    }
+  </script>
 </body>
 </html>
