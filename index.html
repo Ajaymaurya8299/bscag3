@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Background with Static Logo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle, #FF5733, #33FF57, #3357FF, #FF33A1, #FFD700);
+            background-size: 300% 300%;
+            animation: backgroundColorChange 5s infinite alternate; /* यहाँ 10s को 5s किया गया है */
+        }
+
+        .logo-container {
+            position: absolute;
+            font-size: 50px;
+            color: white;
+            font-weight: bold;
+            z-index: 10; /* Logo को पृष्ठभूमि के ऊपर रखने के लिए */
+        }
+
+        @keyframes backgroundColorChange {
+            0% {
+                background: radial-gradient(circle, #FF5733, #33FF57, #3357FF, #FF33A1, #FFD700);
+                background-size: 300% 300%;
+            }
+            25% {
+                background: radial-gradient(circle, #33FF57, #3357FF, #FF5733, #FFD700, #FF33A1);
+                background-size: 300% 300%;
+            }
+            50% {
+                background: radial-gradient(circle, #3357FF, #FF33A1, #FFD700, #FF5733, #33FF57);
+                background-size: 300% 300%;
+            }
+            75% {
+                background: radial-gradient(circle, #FF33A1, #FFD700, #FF5733, #33FF57, #3357FF);
+                background-size: 300% 300%;
+            }
+            100% {
+                background: radial-gradient(circle, #FFD700, #FF5733, #33FF57, #3357FF, #FF33A1);
+                background-size: 300% 300%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="herbz222.png" alt=""> <!-- यहाँ पर अपना लोगो का लिंक डालें -->
+    </div>
+
+    <script>
+        // 3 सेकंड बाद पेज को दूसरी जगह पर रीडायरेक्ट करना
+        setTimeout(function() {
+            window.location.href = "login1.html"; // इस URL को अपनी मनचाही जगह से बदलें
+        }, 3000); // 3 सेकंड का विलंब
+    </script>
+</body>
+</html>

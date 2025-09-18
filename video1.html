@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            overflow-y: auto;
+        }
+        .app-header {
+            background-color: #ff0000;
+            color: white;
+            padding: 5px 0;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .search-bar {
+            padding: 5px;
+            width: 180px; /* सर्च बार की चौड़ाई को 25px किया */
+            font-size: 19px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        .search-button {
+            background-color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 70px;
+        }
+        .video-card {
+            background-color: white;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 95%;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .video-card iframe {
+            width: 90%;
+            height: 160px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .video-title {
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .video-card:hover {
+            transform: scale(1.1);
+        }
+        .video-card iframe:hover {
+            transform: scale(1.2);
+        }
+        .app-footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .active-video iframe {
+            transform: scale(1.5);
+            height: 300px;
+        }
+        .active-video .video-title {
+            font-size: 22px;
+        }
+        .active-video {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 90%;
+            margin-top: 0;
+            background-color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-header">
+        <div>Video</div>
+        <div>
+            <input type="text" class="search-bar" id="searchInput" placeholder="Search videos..." onkeyup="searchVideos()">
+            <button class="search-button" onclick="searchVideos()"</button>
+        </div>
+    </div>
+
+    <div class="video-container" id="videoContainer">
+        <!-- Video 1 -->
+        <div class="video-card" data-title="Video 1 Title" onclick="playVideo('dQw4w9WgXcQ', 'video1')">
+            <iframe id="video1" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-title">Video 1 Title</div>
+        </div>
+
+        <!-- Video 2 -->
+        <div class="video-card" data-title="Video 2 Title" onclick="playVideo('3JZ_D3ELwOQ', 'video2')">
+            <iframe id="video2" src="https://www.youtube.com/embed/3JZ_D3ELwOQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-title">Video 2 Title</div>
+        </div>
+
+        <!-- Video 3 -->
+        <div class="video-card" data-title="Video 3 Title" onclick="playVideo('kJQP7kiw5Fk', 'video3')">
+            <iframe id="video3" src="https://www.youtube.com/embed/kJQP7kiw5Fk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-title">Video 3 Title</div>
+        </div>
+
+        <!-- Video 4 -->
+        <div class="video-card" data-title="Video 4 Title" onclick="playVideo('C0DPdy98e4c', 'video4')">
+            <iframe id="video4" src="https://www.youtube.com/embed/C0DPdy98e4c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-title">Video 4 Title</div>
+        </div>
+
+        <!-- Video 5 -->
+        <div class="video-card" data-title="Video 5 Title" onclick="playVideo('9bZkp7q19f0', 'video5')">
+            <iframe id="video5" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-title">Video 5 Title</div>
+        </div>
+    </div>
+    <script>
+        let activeVideo = null; // Track the active video iframe
+
+        // Function to play the selected video
+        function playVideo(videoId, videoElementId) {
+            // Stop the currently playing video (if any)
+            if (activeVideo) {
+                activeVideo.src = ''; // Clear the source to stop the video
+            }
+
+            // Find the iframe of the selected video
+            const iframe = document.getElementById(videoElementId);
+            
+            // Set the iframe's src to load the new video
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+
+            // Set the selected video as the active video
+            activeVideo = iframe;
+        }
+
+        // Function to search videos based on the title
+        function searchVideos() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const videoCards = document.querySelectorAll('.video-card');
+            
+            videoCards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(searchInput)) {
+                    card.style.display = 'red'; // Show the video card if it matches the search
+                } else {
+                    card.style.display = 'none'; // Hide the video card if it doesn't match the search
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login, Sign Up & Forget Password</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease-in-out;
+        }
+        .container:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #ff7e5f;
+            box-shadow: 0 0 5px rgba(255, 126, 95, 0.5);
+        }
+        .button {
+            background-color: #ff7e5f;
+            color: white;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            background-color: #feb47b;
+        }
+        .form-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-link a {
+            color: #ff7e5f;
+            text-decoration: none;
+        }
+        .form-link a:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .form-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-container">
+        <div id="form-title" class="form-header">Login</div>
+        <form id="login-form">
+            <input type="text" id="login-username" class="input-field" placeholder="Username or Email or Mobile" required>
+            <input type="password" id="login-password" class="input-field" placeholder="Password" required>
+            <button type="submit" class="button">Login</button>
+        </form>
+        <p id="login-error" class="error"></p>
+        <div class="form-link">
+            <p><a href="javascript:void(0);" onclick="showSignUp()">Sign up here</a></p>
+            <p><a href="javascript:void(0);" onclick="showForgetPassword()">Forget Password?</a></p>
+        </div>
+    </div>
+
+    <div class="container hidden" id="sign-up-container">
+        <div id="form-title" class="form-header">Sign Up</div>
+        <form id="sign-up-form">
+            <input type="text" id="sign-up-username" class="input-field" placeholder="Username" required>
+            <input type="email" id="sign-up-email" class="input-field" placeholder="Email" required>
+            <input type="text" id="sign-up-mobile" class="input-field" placeholder="Mobile" required>
+            <input type="password" id="sign-up-password" class="input-field" placeholder="Password" required>
+            <button type="submit" class="button">Sign Up</button>
+        </form>
+        <p id="sign-up-error" class="error"></p>
+        <div class="form-link">
+            <p>Already have an account? <a href="javascript:void(0);" onclick="showLogin()">Login here</a></p>
+        </div>
+    </div>
+
+    <div class="container hidden" id="forget-password-container">
+        <div id="form-title" class="form-header">Forget Password</div>
+        <form id="forget-password-form">
+            <input type="text" id="forget-email-mobile" class="input-field" placeholder="Email or Mobile" required>
+            <input type="password" id="new-password" class="input-field" placeholder="New Password" required>
+            <button type="submit" class="button">Reset Password</button>
+        </form>
+        <p id="forget-error" class="error"></p>
+        <div class="form-link">
+            <p><a href="javascript:void(0);" onclick="showLogin()">Back to Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Show Login Form
+        function showLogin() {
+            document.getElementById('login-container').classList.remove('hidden');
+            document.getElementById('sign-up-container').classList.add('hidden');
+            document.getElementById('forget-password-container').classList.add('hidden');
+        }
+
+        // Show Sign Up Form
+        function showSignUp() {
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('sign-up-container').classList.remove('hidden');
+            document.getElementById('forget-password-container').classList.add('hidden');
+        }
+
+        // Show Forget Password Form
+        function showForgetPassword() {
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('sign-up-container').classList.add('hidden');
+            document.getElementById('forget-password-container').classList.remove('hidden');
+        }
+
+        // Check if user is logged in
+        function checkLoginStatus() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                window.location.href = 'home.html'; // Redirect to home page if already logged in
+            } else {
+                showLogin();
+            }
+        }
+
+        // Login Form Submit
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const usernameOrEmail = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            const storedUserData = JSON.parse(localStorage.getItem('userData')) || [];
+
+            let validUser = false;
+            storedUserData.forEach(user => {
+                if ((user.username === usernameOrEmail || user.email === usernameOrEmail || user.mobile === usernameOrEmail) && user.password === password) {
+                    validUser = true;
+                    localStorage.setItem('loggedInUser', JSON.stringify(user)); // Store logged-in user in localStorage
+                }
+            });
+
+            if (validUser) {
+                alert('Login successful!');
+                window.location.href = 'home.html'; // Redirect to home page
+            } else {
+                document.getElementById('login-error').innerText = 'Invalid username/email/mobile or password';
+            }
+        });
+
+        // Sign Up Form Submit
+        document.getElementById('sign-up-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('sign-up-username').value;
+            const email = document.getElementById('sign-up-email').value;
+            const mobile = document.getElementById('sign-up-mobile').value;
+            const password = document.getElementById('sign-up-password').value;
+
+            const userData = {
+                username,
+                email,
+                mobile,
+                password
+            };
+
+            let storedUserData = JSON.parse(localStorage.getItem('userData')) || [];
+            storedUserData.push(userData);
+            localStorage.setItem('userData', JSON.stringify(storedUserData));
+
+            alert('Sign up successful! Please login.');
+            showLogin();
+        });
+
+        // Forget Password Form Submit
+        document.getElementById('forget-password-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const emailOrMobile = document.getElementById('forget-email-mobile').value;
+            const newPassword = document.getElementById('new-password').value;
+
+            let storedUserData = JSON.parse(localStorage.getItem('userData')) || [];
+            let userFound = false;
+
+            storedUserData.forEach(user => {
+                if ((user.email === emailOrMobile || user.mobile === emailOrMobile)) {
+                    user.password = newPassword;
+                    userFound = true;
+                }
+            });
+
+            if (userFound) {
+                localStorage.setItem('userData', JSON.stringify(storedUserData));
+                alert('Password reset successful!');
+                showLogin();
+            } else {
+                document.getElementById('forget-error').innerText = 'Email or Mobile not found';
+            }
+        });
+
+        // Call checkLoginStatus when page loads
+        window.onload = checkLoginStatus;
+    </script>
+
+</body>
+</html>

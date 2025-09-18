@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Application</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .app-header {
+            background-color: #FF5733; /* हेडर का रंग बदला */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .button-container {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .note-button {
+            display: block; /* हर बटन को नई लाइन पर लाने के लिए */
+            width: 85%; /* बटन की चौड़ाई */
+            margin: 20px auto; /* बटन के बीच अधिक जगह */
+            padding: 18px;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #3498db; /* बटन का रंग नीला */
+            color: white;
+            border: none;
+            border-radius: 12px; /* बटन को गोल कोनों वाला बनाने के लिए */
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease; /* होवर पर स्मूद इफेक्ट */
+        }
+        .note-button:hover {
+            background-color: #2980b9; /* होवर पर नीला रंग बदलता है */
+            transform: scale(1.05); /* बटन को थोड़ा बड़ा दिखाने के लिए */
+            box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.3);
+        }
+        .note-button:active {
+            background-color: #1f6f8b; /* क्लिक करते समय बटन का रंग */
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+        }
+        .note-button a {
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-header">
+        Notes
+    </div>
+    <div class="button-container">
+        <button class="note-button"><a href="page1.html" target="_blank">fundamental of Agronomy</a></button>
+        <button class="note-button"><a href="page2.html" target="_blank">fundamental of Genetics</a></button>
+        <button class="note-button"><a href="page3.html" target="_blank">fundamental of Soil Science</a></button>
+        <button class="note-button"><a href="page4.html" target="_blank">fundamental of Horticulture</a></button>
+        <button class="note-button"><a href="page5.html" target="_blank">Rural Sociology & Educational Psychology</a></button>
+        <button class="note-button"><a href="page6.html" target="_blank">Introduction to Forestry</a></button>
+        <button class="note-button"><a href="page7.html" target="_blank">Introductory Animal Husbandry</a></button>
+        <button class="note-button"><a href="page8.html" target="_blank">Comprehension & Communication Skills in English</a></button>
+        <button class="note-button"><a href="page9.html" target="_blank">Agricultural Heritage</a></button>
+        <button class="note-button"><a href="page10.html" target="_blank">General Agriculture |</a></button>
+        <button class="note-button"><a href="page11.html" target="_blank">General Agriculture ||</a></button>
+        <button class="note-button"><a href="page12.html" target="_blank">Introductory Biology</a></button>
+        <button class="note-button"><a href="page13.html" target="_blank">Elementary Mathematics</a></button>
+   </div>
+</body>
+</html>

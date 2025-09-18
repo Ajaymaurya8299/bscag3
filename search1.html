@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Engine App</title>
+  <style>
+    /* Body and App container */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .app-container {
+      background-color: white;
+      width: 100%;
+      max-width: 600px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Title and description */
+    .app-container h1 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .app-container p {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    /* Search bar styling */
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 15px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 25px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #007bff;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      outline: none;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Results Section */
+    .results {
+      margin-top: 30px;
+      text-align: left;
+      max-height: 400px;
+      overflow-y: auto;
+      border-top: 2px solid #ddd;
+      padding-top: 20px;
+      width: 100%;
+    }
+    .result-item {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .result-item a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+    }
+    .result-item a:hover {
+      text-decoration: underline;
+    }
+    .result-item p {
+      font-size: 14px;
+      color: #555;
+    }
+    .result-item img {
+      width: 100%;
+      max-width: 100px;
+      margin-top: 10px;
+    }
+    .result-item video {
+      width: 100%;
+      max-width: 300px;
+      margin-top: 10px;
+    }
+
+    /* Loading State */
+    .loading {
+      font-size: 18px;
+      color: #007bff;
+      margin-top: 20px;
+    }
+
+    /* App Header */
+    .app-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #007bff;
+      color: white;
+      padding: 15px;
+      width: 100%;
+      border-radius: 20px 20px 0 0;
+      margin-bottom: 20px;
+    }
+    .app-header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="app-header">
+      <h1>Search</h1>
+    </div>
+    <p>Search for anything here:</p>
+    <div class="search-bar">
+      <input type="text" id="query" placeholder="Type here...">
+      <button onclick="search()">Search</button>
+    </div>
+    <div id="results" class="results"></div>
+    <div id="loading" class="loading" style="display: none;">Please wait...</div>
+  </div>
+
+  <script>
+    const apiKey = 'AIzaSyAhTJ1SUBWUQFjPh3CXVp5bWgxdMVRxvw4';  // Replace with your API Key
+    const cx = '21f59ce6ed76849a1';  // Replace with your Custom Search Engine ID
+
+    async function search() {
+      const query = document.getElementById("query").value.trim();
+      const resultsDiv = document.getElementById("results");
+      const loadingDiv = document.getElementById("loading");
+
+      if (!query) {
+        alert("Please type something!");
+        return;
+      }
+
+      resultsDiv.innerHTML = '';
+      loadingDiv.style.display = 'block';
+
+      // API URL (Fetching web results)
+      const apiUrl = `https://www.googleapis.com/customsearch/v1?q=${query}&key=${apiKey}&cx=${cx}&num=5`;
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+          let resultsHTML = '';
+          data.items.forEach(item => {
+            resultsHTML += `
+              <div class="result-item">
+                <a href="${item.link}" target="_blank">${item.title}</a>
+                <p>${item.snippet}</p>
+              </div>
+            `;
+          });
+          resultsDiv.innerHTML = resultsHTML;
+        } else {
+          resultsDiv.innerHTML = "No results found.";
+        }
+      } catch (error) {
+        resultsDiv.innerHTML = "Something went wrong. Please try again.";
+      } finally {
+        loadingDiv.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

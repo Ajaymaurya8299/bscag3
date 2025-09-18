@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Paper</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .app-header {
+            background-color: red; /* हेडर का रंग लाल */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .button-container {
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px; /* बटन को हेडर से नीचे करने के लिए */
+        }
+        .action-button {
+            display: block; /* हर बटन को नई लाइन पर लाने के लिए */
+            width: 80%; /* बटन की चौड़ाई */
+            margin: 20px auto; /* बटन के बीच अधिक जगह */
+            padding: 18px;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: red; /* बटन का रंग लाल */
+            color: white;
+            border: none;
+            border-radius: 12px; /* बटन को गोल कोनों वाला बनाने के लिए */
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease; /* होवर पर स्मूद इफेक्ट */
+        }
+        .action-button:hover {
+            background-color: #e60000; /* होवर पर बटन का रंग थोड़ा गहरा लाल */
+            transform: scale(1.05); /* बटन को थोड़ा बड़ा दिखाने के लिए */
+            box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.3);
+        }
+        .action-button:active {
+            background-color: #cc0000; /* क्लिक करते समय बटन का रंग */
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+        }
+        .action-button a {
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-header">
+        Question Papers
+    </div>
+    <div class="button-container">
+        <button class="action-button"><a href="Paper2023.html" target="_blank">2023</a></button>
+        <button class="action-button"><a href="Paper20241.html" target="_blank">2024</a></button>
+    </div>
+</body>
+</html>

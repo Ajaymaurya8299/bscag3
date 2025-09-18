@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .button {
+            background-color: #ff7e5f;
+            color: white;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            background-color: #feb47b;
+        }
+        .message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="message">Are you sure you want to log out?</div>
+        <button class="button" onclick="logout()">Log Out</button>
+    </div>
+
+    <script>
+        function logout() {
+            // Remove the logged-in user from localStorage
+            localStorage.removeItem('loggedInUser');
+
+            // Redirect to login page after logout
+            window.location.href = 'login.html'; // Replace with your login page URL
+        }
+    </script>
+
+</body>
+</html>
